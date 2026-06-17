@@ -1,0 +1,27 @@
+{
+    "mal": {
+        "client_id": "TU_CLIENT_ID_AQUI",
+        "client_secret": "TU_CLIENT_SECRET_AQUI"
+    },
+    "wallhaven": {
+        "api_key": "TU_API_KEY_AQUI"
+    },
+    "search": {
+        "wallhaven_limit": 5,
+        "konachan_limit": 5
+    },
+    "imgbb": {
+        "api_key": "TU_API_KEY_AQUI",
+        "album_id": "EL_ID_DEL_ALBUM_DE_IMGBB_AQUI"
+    },
+    "display": {
+        "min_width": 1920,
+        "min_height": 1080
+    },
+    "paths": {
+        "database": "TU_RUTA_A_LA_BASE_DE_DATOS_AQUI",
+        "aptos": "TU_RUTA_A_LA_CARPETA_DE_WALLPAPERS_APTOS_AQUI",
+        "no_aptos": "TU_RUTA_A_LA_CARPETA_DE_WALLPAPERS_NO_APTOS_AQUI",
+        "valorar": "TU_RUTA_A_LA_CARPETA_DE_WALLPAPERS_PARA_VALORAR_AQUI"
+    }
+}

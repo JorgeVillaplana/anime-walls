@@ -1,0 +1,119 @@
+# ── CREDENCIALES Y SECRETOS ──
+config.json
+.env
+.env.local
+
+# ── ENTORNO VIRTUAL ──
+venv/
+env/
+ENV/
+.venv
+
+# ── PYTHON ──
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ── BASE DE DATOS ──
+*.db
+*.sqlite
+*.sqlite3
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+
+# ── TOKENS Y ARCHIVOS TEMPORALES DE AUTH ──
+data/mal_token.json
+data/pkce_verifier.txt
+
+# ── WALLPAPERS DESCARGADOS (LOCALES) ──
+# Nota: El directorio wallpapers/ puede estar en disco externo según config.json
+# Si está en el repo, descomenta estas líneas:
+# wallpapers/aptos/*
+# wallpapers/no_aptos/*
+# wallpapers/valorar/*
+# !wallpapers/.gitkeep
+
+# ── OBSIDIAN ──
+.obsidian/
+.obsidian-git/
+*.md.bak
+
+# ── IDE Y EDITORES ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.iml
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# ── LOGS Y ARCHIVOS TEMPORALES ──
+*.log
+*.tmp
+*.temp
+*.cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ── SISTEMA OPERATIVO ──
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+desktop.ini
+
+# ── DEPENDENCIAS (OPCIONAL) ──
+# Descomenta si prefieres no versionar node_modules u otros
+# node_modules/
+# package-lock.json
+
+# ── DOCUMENTACIÓN GENERADA ──
+site/
+*.egg-info
+
+# ── ARCHIVOS DE CONFIGURACIÓN LOCAL ──
+.env.*.local
+config.*.json
+
+# ── RESPALDOS ──
+*.bak
+*.backup
+*~
+
+# ── MACOS ──
+.AppleDouble
+.LSOverride
+
+# ── WINDOWS ──
+$RECYCLE.BIN/
+*.cab

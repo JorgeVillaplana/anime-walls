@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anime Wallpapers</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header>
+        <span class="brand">anime<span>wall</span></span>
+        <div id="auth-badge">
+          <span class="dot"></span>
+          <span class="auth-label">Comprobando…</span>
+        </div>
+        <button class="btn btn-danger btn-sm" id="btn-reset">
+          Reset completo
+        </button>
+      </header>
+
+      <main>
+        <!-- ── VISTA: AUTH ── -->
+        <div id="view-auth" class="view active">
+          <div class="state-msg" style="padding-top: 6rem">
+            <p
+              style="
+                font-size: 18px;
+                font-weight: 500;
+                margin-bottom: 0.5rem;
+                color: var(--text);
+              "
+            >
+              Conecta con MyAnimeList
+            </p>
+            <p style="margin-bottom: 2rem">
+              Necesitas autorizar el acceso a tu lista de completados.
+            </p>
+            <button id="btn-login" class="btn btn-primary">
+              Conectar con MAL
+            </button>
+          </div>
+        </div>
+
+        <!-- ── VISTA: LISTA ── -->
+        <div id="view-list" class="view">
+          <div class="toolbar">
+            <input type="text" id="search-input" placeholder="Buscar serie…" />
+            <select id="filter-select">
+              <option value="all">Todas</option>
+              <option value="with">Con wallpaper</option>
+              <option value="without">Sin wallpaper</option>
+            </select>
+            <select id="pref-title">
+              <option value="japanese">Japonés</option>
+              <option value="english">Inglés</option>
+              <option value="romaji" selected>Romaji</option>
+            </select>
+            <span class="count-label" id="count-label"></span>
+          </div>
+
+          <div id="series-grid"></div>
+        </div>
+
+        <!-- ── VISTA: DETALLE ── -->
+        <div id="view-detail" class="view">
+          <button id="detail-back">← Volver a la lista</button>
+
+          <div class="detail-header">
+            <div class="detail-cover-placeholder" id="detail-cover-ph">🎬</div>
+            <img
+              class="detail-cover"
+              id="detail-cover"
+              style="display: none"
+              alt=""
+            />
+            <div class="detail-meta">
+              <h2 id="detail-title"></h2>
+              <p class="subtitle" id="detail-subtitle"></p>
+              <span id="detail-status-badge" class="status-badge none"
+                >Sin wallpaper</span
+              >
+              <div class="detail-actions">
+                <button
+                  class="btn btn-sm"
+                  id="btn-change-status"
+                  style="display: none"
+                >
+                  Cambiar estado
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="res-config">
+            <span>Resolución mínima:</span>
+            <input type="number" id="res-w" value="1920" min="800" step="1" /> ×
+            <input type="number" id="res-h" value="1080" min="600" step="1" />
+            <span style="color: var(--muted)">px</span>
+            <button class="btn btn-sm" id="btn-save-res">Guardar</button>
+            <span style="margin-left: 1rem">Wallhaven:</span>
+            <input
+              type="number"
+              id="wh-limit"
+              value="5"
+              min="1"
+              max="20"
+              style="width: 55px"
+            />
+            <span>Konachan:</span>
+            <input
+              type="number"
+              id="kn-limit"
+              value="5"
+              min="1"
+              max="20"
+              style="width: 55px"
+            />
+            <span>Yandere:</span>
+            <input
+              type="number"
+              id="yd-limit"
+              value="5"
+              min="1"
+              max="20"
+              style="width: 55px"
+            />
+            <span>Safebooru:</span>
+            <input
+              type="number"
+              id="sb-limit"
+              value="5"
+              min="1"
+              max="20"
+              style="width: 55px"
+            />
+            <button class="btn btn-sm" id="btn-save-search">Guardar</button>
+          </div>
+
+          <!-- Búsqueda manual alternativa -->
+          <div class="search-override">
+            <input
+              type="text"
+              id="manual-search-input"
+              placeholder="Buscar con otro término…"
+            />
+            <button class="btn btn-sm" id="btn-manual-search">Buscar</button>
+          </div>
+
+          <div class="wp-section-title">Resultados</div>
+          <div id="wallpaper-grid"></div>
+
+          <!-- Zona de subida manual -->
+          <div class="wp-section-title">O sube tu propia imagen</div>
+          <div class="upload-zone" id="upload-zone">
+            <input type="file" id="upload-input" accept="image/*" />
+            <p>Arrastra una imagen aquí o haz clic para seleccionar</p>
+            <p style="font-size: 12px; margin-top: 4px">
+              Se convertirá a JPG automáticamente
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- ── MODAL: CLASIFICAR WALLPAPER ── -->
+    <div class="modal-backdrop" id="modal-classify">
+      <div class="modal">
+        <h3>Clasificar wallpaper</h3>
+        <p class="modal-sub">Fuente: <span id="modal-source"></span></p>
+        <img
+          class="modal-preview"
+          id="modal-preview-img"
+          src=""
+          alt="preview"
+        />
+        <div class="classify-options">
+          <button class="classify-opt" data-status="aptos">✓ Apto</button>
+          <button class="classify-opt" data-status="no_aptos">✗ No apto</button>
+          <button class="classify-opt" data-status="valorar">? Valorar</button>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" id="btn-cancel-modal">Cancelar</button>
+          <button class="btn btn-primary" id="btn-confirm-download" disabled>
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MODAL: CAMBIAR ESTADO ── -->
+    <div class="modal-backdrop" id="modal-change-status">
+      <div class="modal">
+        <h3>Cambiar estado del wallpaper</h3>
+        <p class="modal-sub">
+          Selecciona el nuevo estado. El archivo se moverá a la carpeta
+          correspondiente.
+        </p>
+        <div class="classify-options">
+          <button class="classify-opt change-status-opt" data-status="aptos">
+            ✓ Apto
+          </button>
+          <button class="classify-opt change-status-opt" data-status="no_aptos">
+            ✗ No apto
+          </button>
+          <button class="classify-opt change-status-opt" data-status="valorar">
+            ? Valorar
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" id="btn-cancel-status">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── MODAL: SUBIDA MANUAL ── -->
+    <div class="modal-backdrop" id="modal-upload">
+      <div class="modal">
+        <h3>Clasificar imagen subida</h3>
+        <p class="modal-sub" id="modal-upload-filename"></p>
+        <img
+          class="modal-preview"
+          id="modal-upload-preview"
+          src=""
+          alt="preview"
+        />
+        <div class="classify-options">
+          <button class="classify-opt upload-classify-opt" data-status="aptos">
+            ✓ Apto
+          </button>
+          <button
+            class="classify-opt upload-classify-opt"
+            data-status="no_aptos"
+          >
+            ✗ No apto
+          </button>
+          <button
+            class="classify-opt upload-classify-opt"
+            data-status="valorar"
+          >
+            ? Valorar
+          </button>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" id="btn-cancel-upload">Cancelar</button>
+          <button class="btn btn-primary" id="btn-confirm-upload" disabled>
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── TOAST ── -->
+    <div id="toast"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
