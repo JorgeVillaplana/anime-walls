@@ -6,7 +6,7 @@ Herramienta local para automatizar la búsqueda, previsualización, descarga y o
 
 **Este proyecto es una herramienta personal de código abierto sin ánimo de lucro.** Debes ser consciente de lo siguiente:
 
-- **Las imágenes descargadas no son propiedad del autor del proyecto.** Todas proceden de terceros (Wallhaven, Konachan, Yande.re, Safebooru). El usuario es responsable de asegurar que cumple con la normativa de derechos de autor y copyright de su jurisdicción.
+- **Las imágenes descargadas no son propiedad del autor del proyecto.** Todas proceden de terceros (Wallhaven y Safebooru). El usuario es responsable de asegurar que cumple con la normativa de derechos de autor y copyright de su jurisdicción.
 - **Contenido potencialmente NSFW:** Algunas fuentes contienen imágenes clasificadas como NSFW (Not Safe For Work), incluidas aquellas de naturaleza suggestive. Aunque la herramienta implementa filtros (purity levels, categoría SFW), no se garantiza una clasificación 100% precisa.
 - **Responsabilidad del acceso:** Este proyecto está diseñado para **usuarios adultos en entornos privados.** Si menores de edad tienen acceso a la máquina donde se ejecuta o a los wallpapers descargados, **eres responsable de implementar controles parentales adecuados.** El repositorio puede contener imágenes NSFW en ejemplos o documentación.
 - **Sin garantías:** El proyecto se proporciona "tal cual", sin garantías de ningún tipo, explícitas o implícitas.
@@ -22,8 +22,6 @@ Herramienta local para automatizar la búsqueda, previsualización, descarga y o
 - **Agrupación inteligente:** Filtra automáticamente series raíz eliminando temporadas duplicadas.
 - **Búsqueda multi-fuente:** Busca wallpapers simultáneamente en:
     - **Wallhaven**
-    - **Konachan**
-    - **Yande.re**
     - **Safebooru**
 - **Previsualización:** Ve (a priori) 20 wallpapers diferentes antes de descargar, con badges de fuente y resolución.
 - **Clasificación flexible:** Organiza en tres carpetas (`aptos`, `no_aptos`, `valorar`) basadas en contenido.
@@ -133,8 +131,6 @@ Copia la plantilla y rellena tus credenciales:
     },
     "search": {
         "wallhaven_limit": 5,
-        "konachan_limit": 5,
-        "yandere_limit": 5,
         "safebooru_limit": 5
     },
     "paths": {
@@ -257,12 +253,6 @@ La BD se inicializa automáticamente en primer arranque.
 - Categorías: General, Anime, People
 - Filtros: Purity, ratios, orden
 
-### Konachan / Yande.re
-
-- Protocolo: Moebooru
-- Sin autenticación requerida
-- Tags personalizables
-
 ### Safebooru
 
 - Protocolo: Gelbooru
@@ -315,7 +305,7 @@ Este proyecto se distribuye bajo licencia MIT. Eres libre de modificarlo y distr
 
 - **Backend:** Python 3.10+, FastAPI, SQLite, Pillow, httpx
 - **Frontend:** HTML5, CSS3, JavaScript
-- **APIs:** MAL, Wallhaven, Konachan, Yande.re, Safebooru, ImgBB
+- **APIs:** MAL, Wallhaven, Safebooru, ImgBB
 - **Almacenamiento:** SQLite local + ImgBB para backups
 
 ---
@@ -331,7 +321,7 @@ Este es un proyecto personal. Para bugs o sugerencias, abre un issue en GitHub.
 ## 🙏 Agradecimientos
 
 - MyAnimeList por su API pública
-- Wallhaven, Konachan, Yande.re y Safebooru por las fuentes de wallpapers
+- Wallhaven y Safebooru por las fuentes de wallpapers
 - ImgBB por el servicio de almacenamiento
 - FastAPI y Pillow por facilitar el desarrollo
 

@@ -8,7 +8,7 @@
     },
     "search": {
         "wallhaven_limit": 5,
-        "konachan_limit": 5
+        "safebooru_limit": 5
     },
     "imgbb": {
         "api_key": "TU_API_KEY_AQUI",

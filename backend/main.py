@@ -154,7 +154,7 @@ async def sync_series(mal_id: int):
 @app.get("/wallpapers/search/{mal_id}")
 async def search_wallpapers(mal_id: int):
     """
-    Busca wallpapers para una serie en Wallhaven y Konachan.
+    Busca wallpapers para una serie en Wallhaven y Safebooru.
     También devuelve el wallpaper actual si la serie ya tiene uno.
     """
     conn = get_connection()
@@ -180,8 +180,6 @@ async def search_wallpapers(mal_id: int):
         title_romaji    = series["title_romaji"]  or None,
         title_japanese  = series["title_japanese"] or None,
         wallhaven_limit = config["search"]["wallhaven_limit"],
-        konachan_limit  = config["search"]["konachan_limit"],
-        yandere_limit   = config["search"]["yandere_limit"],
         safebooru_limit = config["search"]["safebooru_limit"],
     )
 
@@ -194,25 +192,21 @@ async def search_wallpapers(mal_id: int):
 async def get_search_config():
     return {
         "wallhaven_limit": config["search"]["wallhaven_limit"],
-        "konachan_limit":  config["search"]["konachan_limit"],
-        "yandere_limit":   config["search"]["yandere_limit"],
         "safebooru_limit": config["search"]["safebooru_limit"]
     }
 
 @app.post("/config/search")
 async def save_search_config(data: dict):
     wh = data.get("wallhaven_limit")
-    kn = data.get("konachan_limit")
-    yd = data.get("yandere_limit")
     sb = data.get("safebooru_limit")
-    
-    if not all([wh, kn, yd, sb]) or not all(1 <= v <= 20 for v in [wh, kn, yd, sb]):
-        raise HTTPException(status_code=400, detail="Todos los límites deben estar entre 1 y 20.")
-    
+    limits = (wh, sb)
+    if any(type(limit) is not int or not 1 <= limit <= 20 for limit in limits):
+        raise HTTPException(status_code=400, detail="Los límites deben ser enteros entre 1 y 20.")
+
     config["search"]["wallhaven_limit"] = wh
-    config["search"]["konachan_limit"]  = kn
-    config["search"]["yandere_limit"]   = yd
     config["search"]["safebooru_limit"] = sb
+    config["search"].pop("konachan_limit", None)
+    config["search"].pop("yandere_limit", None)
     
     import json
     with open(CONFIG_PATH, "w", encoding="utf-8") as f:
@@ -224,7 +218,7 @@ async def save_search_config(data: dict):
 class DownloadRequest(BaseModel):
     mal_id:     int
     source_url: str
-    source:     str      # 'wallhaven' | 'konachan' | 'yandere' | 'safebooru'
+    source:     str      # 'wallhaven' | 'safebooru'
     status:     str      # 'aptos' | 'no_aptos' | 'valorar'
 
 @app.post("/wallpapers/download")
@@ -592,8 +586,6 @@ async def search_by_term(q: str = Query(...)):
         title_romaji   = None,
         title_japanese = None,
         wallhaven_limit = config["search"]["wallhaven_limit"],
-        konachan_limit  = config["search"]["konachan_limit"],
-        yandere_limit   = config["search"]["yandere_limit"],
         safebooru_limit = config["search"]["safebooru_limit"],
     )
     return {"results": results}

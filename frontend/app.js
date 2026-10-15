@@ -371,7 +371,7 @@ async function openSeries(malId) {
   loadWallpapers(malId);
 }
 
-// Busca wallpapers en múltiples fuentes (Wallhaven, Konachan, Yandere, Safebooru)
+// Busca wallpapers en Wallhaven y Safebooru
 // Muestra el wallpaper actual guardado (si existe) y permite clasificar nuevos
 async function loadWallpapers(malId) {
   // Muestra spinner mientras busca
@@ -450,18 +450,14 @@ async function loadSearchConfig() {
   try {
     const cfg = await apiFetch("/config/search");
     $("wh-limit").value = cfg.wallhaven_limit;
-    $("kn-limit").value = cfg.konachan_limit;
-    $("yd-limit").value = cfg.yandere_limit;
     $("sb-limit").value = cfg.safebooru_limit;
   } catch {}
 }
 
 // Guarda los límites de búsqueda editados por el usuario
-// Envía todos los 4 límites al servidor
+// Envía los límites de las dos fuentes activas al servidor
 $("btn-save-search").addEventListener("click", async () => {
   const wh = parseInt($("wh-limit").value);
-  const kn = parseInt($("kn-limit").value);
-  const yd = parseInt($("yd-limit").value);
   const sb = parseInt($("sb-limit").value);
 
   try {
@@ -471,8 +467,6 @@ $("btn-save-search").addEventListener("click", async () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         wallhaven_limit: wh,
-        konachan_limit: kn,
-        yandere_limit: yd,
         safebooru_limit: sb,
       }),
     });
